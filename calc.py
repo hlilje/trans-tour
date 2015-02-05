@@ -6,7 +6,7 @@ Functions for doing geographical calculations.
 from math import radians, cos, sin, asin, sqrt
 
 
-def haversine(self, lon1, lat1, lon2, lat2):
+def haversine(lon1, lat1, lon2, lat2):
     """
     Calculate the great circle distance between two points
     on the earth (specified in decimal degrees).
@@ -29,5 +29,13 @@ def total_distance(pos):
     """
     Calculate the total tour distance from the given positions.
     """
+    # Extracts the arguments from the lists to calculate distance with haversine
+    f = lambda l1, l2: haversine(l1[0], l1[1], l2[0], l2[1])
 
-    return 0
+    # Call f on every pair of list elements
+    # TODO Add smart condition
+    sums = [f(pos[i - 1], x) for i, x in enumerate(pos) if True][1:]
+    print(sums)
+
+    # Returns the sum of the distances
+    return sum(sums)
