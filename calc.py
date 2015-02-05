@@ -24,3 +24,10 @@ def haversine(self, lon1, lat1, lon2, lat2):
     km = 6371 * c
 
     return km
+
+def total_distance(pos):
+    """
+    Calculate the total tour distance from the given positions.
+    """
+
+    return 0

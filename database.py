@@ -6,7 +6,12 @@ Functions for interacting with the database.
 import sqlite3 as lite
 import sys
 
-PATH_DB = "../db/budbee.db"
+# Database names
+PATH_DB       = "../db/budbee.db"
+TBL_START     = "start_addresses"
+TBL_POSITIONS = "positions"
+TBL_ADDRESSES = "addresses"
+COL_CREATED   = "created"
 
 con = None # Database connection
 cur = None # Database cursor
@@ -48,6 +53,23 @@ def test_db():
         print("Database error: %s" % e.args[0])
         sys.exit(1)
 
+def get_start_address():
+    """
+    Queries the database and returns the start address.
+    """
+
+    data = None
+    try:
+        cur.execute('SELECT * FROM ' + TBL_START + ' LIMIT 1')
+        data = cur.fetchall()
+
+    except lite.Error as e:
+        print("Database error: %s" % e.args[0])
+        if con: con.close()
+        sys.exit(1)
+
+    return data
+
 def get_positions():
     """
     Queries the database and returns all the stored positions.
@@ -55,7 +77,8 @@ def get_positions():
 
     data = None
     try:
-        cur.execute('SELECT * FROM positions ORDER BY datetime(created) ASC')
+        cur.execute('SELECT * FROM ' + TBL_POSITIONS + ' ORDER BY datetime(' +
+                COL_CREATED + ') ASC')
         data = cur.fetchall()
 
     except lite.Error as e:
