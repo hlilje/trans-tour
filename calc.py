@@ -29,7 +29,7 @@ def total_distance(pos):
     """
     Calculate the total tour distance from the given positions.
     """
-    # Extracts the arguments from the lists to calculate distance with haversine
+    # Extract the arguments from the lists to calculate distance with haversine
     f = lambda l1, l2: haversine(l1[0], l1[1], l2[0], l2[1])
 
     # Call f on every pair of list elements
@@ -37,5 +37,5 @@ def total_distance(pos):
     sums = [f(pos[i - 1], x) for i, x in enumerate(pos) if True][1:]
     print(sums)
 
-    # Returns the sum of the distances
+    # Return the sum of the distances
     return sum(sums)

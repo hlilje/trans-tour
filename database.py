@@ -9,8 +9,10 @@ import sys
 # Database names
 PATH_DB       = "../db/budbee.db"
 TBL_START     = "start_addresses"
-TBL_POSITIONS = "positions"
 TBL_ADDRESSES = "addresses"
+TBL_POSITIONS = "positions"
+COL_LATITUDE  = "latitude"
+COL_LONGITUDE = "longitude"
 COL_CREATED   = "created"
 
 con = None # Database connection
@@ -51,6 +53,7 @@ def test_db():
 
     except lite.Error as e:
         print("Database error: %s" % e.args[0])
+        if con: con.close()
         sys.exit(1)
 
 def get_start_address():
@@ -70,7 +73,7 @@ def get_start_address():
 
     return data
 
-def get_positions():
+def get_all_positions():
     """
     Queries the database and returns all the stored positions.
     """
@@ -80,6 +83,26 @@ def get_positions():
         cur.execute('SELECT * FROM ' + TBL_POSITIONS + ' ORDER BY datetime(' +
                 COL_CREATED + ') ASC')
         data = cur.fetchall()
+
+    except lite.Error as e:
+        print("Database error: %s" % e.args[0])
+        if con: con.close()
+        sys.exit(1)
+
+def get_unique_positions():
+    """
+    Queries the database and returns all the stored positions without
+    redundant position data.
+    """
+
+    data = None
+    try:
+        cur.execute('SELECT ' + COL_LATITUDE + ', ' + COL_LONGITUDE + ' FROM '
+                + TBL_POSITIONS + ' ORDER BY datetime(' + COL_CREATED + ') ASC')
+        data = cur.fetchall()
+        # Remove adjacent duplicates, 'not' needed to get last element
+        # TODO Might be a smart way to do it in SQL directly
+        data = [a for a, b in zip(data, data[1:] + [not data[-1]]) if a != b]
 
     except lite.Error as e:
         print("Database error: %s" % e.args[0])
