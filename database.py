@@ -80,14 +80,16 @@ def get_all_positions():
 
     data = None
     try:
-        cur.execute('SELECT * FROM ' + TBL_POSITIONS + ' ORDER BY datetime(' +
-                COL_CREATED + ') ASC')
+        cur.execute('SELECT ' + COL_LATITUDE + ', ' + COL_LONGITUDE + ' FROM ' +
+                TBL_POSITIONS + ' ORDER BY datetime(' + COL_CREATED + ') ASC')
         data = cur.fetchall()
 
     except lite.Error as e:
         print("Database error: %s" % e.args[0])
         if con: con.close()
         sys.exit(1)
+
+    return data
 
 def get_unique_positions():
     """

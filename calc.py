@@ -32,10 +32,8 @@ def total_distance(pos):
     # Extract the arguments from the lists to calculate distance with haversine
     f = lambda l1, l2: haversine(l1[0], l1[1], l2[0], l2[1])
 
-    # Call f on every pair of list elements
-    # TODO Add smart condition
-    sums = [f(pos[i - 1], x) for i, x in enumerate(pos) if True][1:]
-    print(sums)
+    # Call f on every pair of list elements, skip the wrap-around element
+    sums = [f(pos[i - 1], x) for i, x in enumerate(pos)][1:]
 
     # Return the sum of the distances
     return sum(sums)
