@@ -2,6 +2,7 @@
 
 import calc as cl
 import database as db
+import plot as pl
 
 
 if __name__ == "__main__":
@@ -19,5 +20,9 @@ if __name__ == "__main__":
     # print("Positions:")
     # print(pos)
     print("Total distance:", tot_dist, "km")
+
+    pl.init()
+    pl.plot_addresses(start_addr, addrs)
+    pl.save()
 
     db.close()
