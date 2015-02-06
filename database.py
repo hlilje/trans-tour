@@ -7,13 +7,17 @@ import sqlite3 as lite
 import sys
 
 # Database names
-PATH_DB       = "../db/budbee.db"
-TBL_START     = "start_addresses"
-TBL_ADDRESSES = "addresses"
-TBL_POSITIONS = "positions"
-COL_LATITUDE  = "latitude"
-COL_LONGITUDE = "longitude"
-COL_CREATED   = "created"
+PATH_DB        = "../db/budbee.db"
+TBL_START      = "start_addresses"
+TBL_ADDRESSES  = "addresses"
+TBL_POSITIONS  = "positions"
+COL_CITY       = "city"
+COL_CREATED    = "created"
+COL_LATITUDE   = "latitude"
+COL_LONGITUDE  = "longitude"
+COL_STREETNAME = "street_name"
+COL_STREETNO   = "street_no"
+COL_ZIPCODE    = "zipcode"
 
 con = None # Database connection
 cur = None # Database cursor
@@ -63,7 +67,29 @@ def get_start_address():
 
     data = None
     try:
-        cur.execute('SELECT * FROM ' + TBL_START + ' LIMIT 1')
+        cur.execute('SELECT ' + COL_STREETNAME + ', ' + COL_STREETNO + ', ' +
+                COL_ZIPCODE + ', ' + COL_CITY + ', ' + COL_LATITUDE + ', ' +
+                COL_LONGITUDE + ' FROM ' + TBL_START + ' LIMIT 1')
+        data = cur.fetchall()
+
+    except lite.Error as e:
+        print("Database error: %s" % e.args[0])
+        if con: con.close()
+        sys.exit(1)
+
+    return data
+
+def get_all_addresses():
+    """
+    Queries the database and returns all the stored addresses.
+    Does not return the start address.
+    """
+
+    data = None
+    try:
+        cur.execute('SELECT ' + COL_STREETNAME + ', ' + COL_ZIPCODE + ', ' +
+                COL_CITY + ', ' + COL_LATITUDE + ', ' + COL_LONGITUDE + ' FROM ' +
+                TBL_ADDRESSES + ' ORDER BY datetime(' + COL_STREETNAME + ') ASC')
         data = cur.fetchall()
 
     except lite.Error as e:
