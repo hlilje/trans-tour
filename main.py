@@ -14,15 +14,16 @@ if __name__ == "__main__":
 
     tot_dist = cl.total_distance(pos)
 
-    print("Start address:", start_addr)
+    # print("Start address:", start_addr)
     # print("Addresses:")
     # print(addrs)
     # print("Positions:")
     # print(pos)
-    print("Total distance:", tot_dist, "km")
+    print("Total distance:", round(tot_dist, 2), "km")
 
     pl.init()
     pl.plot_addresses(start_addr, addrs)
+    pl.plot_route(pos)
     pl.save()
 
     db.close()
