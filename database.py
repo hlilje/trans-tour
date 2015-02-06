@@ -107,7 +107,8 @@ def get_all_positions():
     data = None
 
     try:
-        cur.execute('SELECT ' + COL_LATITUDE + ', ' + COL_LONGITUDE + ' FROM ' +
+        cur.execute('SELECT ' + COL_LATITUDE + ', ' + COL_LONGITUDE + ', ' +
+                COL_CREATED + ' FROM ' +
                 TBL_POSITIONS + ' ORDER BY datetime(' + COL_CREATED + ') ASC')
         data = cur.fetchall()
 
