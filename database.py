@@ -150,10 +150,11 @@ def get_stop_positions():
     # TODO GROUP BY merges those which are duplicated but not adjacent
     # TODO Assumes it takes more than 10 sec (sampling interval) to make a delivery
     try:
-        cur.execute('SELECT ' + COL_LATITUDE + ', ' + COL_LONGITUDE + ' FROM ' +
-                TBL_POSITIONS + ' GROUP BY ' + COL_LATITUDE + ', ' + COL_LONGITUDE +
-                ', ' + COL_SPEED + ' HAVING COUNT(' + COL_SPEED +
-                ') > 1 ORDER BY datetime(' + COL_CREATED + ') ASC')
+        cur.execute('SELECT ' + COL_LATITUDE + ', ' + COL_LONGITUDE + ', ' +
+                COL_CREATED + ' FROM ' + TBL_POSITIONS + ' GROUP BY ' +
+                COL_LATITUDE + ', ' + COL_LONGITUDE + ', ' + COL_SPEED +
+                ' HAVING COUNT(' + COL_SPEED + ') > 1 ORDER BY datetime(' +
+                COL_CREATED + ') ASC')
         data = cur.fetchall()
 
     except lite.Error as e:

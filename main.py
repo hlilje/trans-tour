@@ -26,6 +26,7 @@ if __name__ == "__main__":
     # pl.plot_route(pos) # Optional param for thinning
     # pl.save()
 
-    print(db.get_stop_positions())
+    stops = db.get_stop_positions()
+    print(cl.order_addresses(addrs, stops))
 
     db.close()

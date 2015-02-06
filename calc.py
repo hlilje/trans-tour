@@ -38,8 +38,34 @@ def total_distance(pos):
     # Return the sum of the distances
     return sum(sums)
 
+def closest_stops(stops, addrs):
+    """
+    Find the closest stops to the given addresses from the given stop
+    positions.
+    Return a list of (stop time, address) tuples.
+    """
+    stop_addrs = []
+
+    # Go through all addresses and find the closest stop positions
+    for i, a in enumerate(addrs):
+        # Compare distance using haversine, a is an enumerate tuple
+        f = lambda x: haversine(x[1][0], x[1][1], a[3], a[4])
+
+        # Find closest index and value using min and comparing with f
+        min_ix, min_stop = min(enumerate(stops), key=f)
+
+        # Save (stop time, address) tuple
+        stop_addrs.append((min_stop[2], a))
+
+    return stop_addrs
+
 def order_addresses(addrs, stops):
     """
     Order the given addresses based on delivery time.
-    Stops should be sorted in ascending time.
     """
+    sorted_pos = []
+    # Find closest stop position + timestamp for each address
+    stop_addrs = closest_stops(stops, addrs)
+
+    print(stop_addrs)
+
