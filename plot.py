@@ -42,7 +42,7 @@ def plot_route(pos, thin=1):
     Plot the given route on the map. The second argument specifies how much
     thinning should be done.
     """
-    pos = pos[::thin] # Only take element number thin
+    pos = pos[::thin] # Only take the thin't element
 
     # Plot all positional points in segments from x to x + 1
     for i, p in enumerate(pos[:-1]):
