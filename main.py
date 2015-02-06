@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     pl.init()
     pl.plot_addresses(start_addr, addrs)
-    pl.plot_route(pos)
+    pl.plot_route(pos) # Optional param for thinning
     pl.save()
 
     db.close()
