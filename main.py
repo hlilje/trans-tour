@@ -9,24 +9,16 @@ if __name__ == "__main__":
     db.connect()
 
     start_addr = db.get_start_address()
-    addrs = db.get_all_addresses()
+    stops = db.get_stop_positions()
+    addrs = cl.order_addresses(db.get_all_addresses(), stops)
     pos = db.get_unique_positions()
 
     tot_dist = cl.total_distance(pos)
-
-    # print("Start address:", start_addr)
-    # print("Addresses:")
-    # print(addrs)
-    # print("Positions:")
-    # print(pos)
     print("Total distance:", round(tot_dist, 2), "km")
 
-    # pl.init()
-    # pl.plot_addresses(start_addr, addrs)
-    # pl.plot_route(pos) # Optional param for thinning
-    # pl.save()
-
-    stops = db.get_stop_positions()
-    print(cl.order_addresses(addrs, stops))
+    pl.init()
+    pl.plot_addresses(start_addr, addrs)
+    pl.plot_route(pos) # Optional param for thinning
+    pl.save()
 
     db.close()

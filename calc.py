@@ -42,7 +42,7 @@ def closest_stops(stops, addrs):
     """
     Find the closest stops to the given addresses from the given stop
     positions.
-    Return a list of (stop time, address) tuples.
+    Return a list of (address, stop time) tuples.
     """
     stop_addrs = []
 
@@ -55,7 +55,7 @@ def closest_stops(stops, addrs):
         min_ix, min_stop = min(enumerate(stops), key=f)
 
         # Save (stop time, address) tuple
-        stop_addrs.append((min_stop[2], a))
+        stop_addrs.append((a, min_stop[2]))
 
     return stop_addrs
 
@@ -66,6 +66,9 @@ def order_addresses(addrs, stops):
     sorted_pos = []
     # Find closest stop position + timestamp for each address
     stop_addrs = closest_stops(stops, addrs)
+    # Sort tuples on timestamp
+    stop_addrs.sort(key=lambda x: x[1])
+    # Unpack tuples to remove timestamps
+    stop_addrs = [s for s, _ in stop_addrs]
 
-    print(stop_addrs)
-
+    return stop_addrs
