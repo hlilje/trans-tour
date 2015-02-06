@@ -37,3 +37,9 @@ def total_distance(pos):
 
     # Return the sum of the distances
     return sum(sums)
+
+def order_addresses(addrs, stops):
+    """
+    Order the given addresses based on delivery time.
+    Stops should be sorted in ascending time.
+    """

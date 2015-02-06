@@ -21,9 +21,11 @@ if __name__ == "__main__":
     # print(pos)
     print("Total distance:", round(tot_dist, 2), "km")
 
-    pl.init()
-    pl.plot_addresses(start_addr, addrs)
-    pl.plot_route(pos) # Optional param for thinning
-    pl.save()
+    # pl.init()
+    # pl.plot_addresses(start_addr, addrs)
+    # pl.plot_route(pos) # Optional param for thinning
+    # pl.save()
+
+    print(db.get_stop_positions())
 
     db.close()

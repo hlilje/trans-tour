@@ -5,8 +5,8 @@ Functions for plotting data points/routes on a map.
 """
 import simplekml
 
-FILE_NAME = "../kml/map.kml"
-URL_ICON = "http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-666666/shapecolor-color/shadow-1/border-dark/symbolstyle-white/symbolshadowstyle-dark/gradient-no/number_"
+PATH_FILE = "../kml/map.kml"
+URL_ICON  = "http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-666666/shapecolor-color/shadow-1/border-dark/symbolstyle-white/symbolshadowstyle-dark/gradient-no/number_"
 
 kml = None # The kml map object
 
@@ -56,5 +56,5 @@ def save():
     """
     Save the kml map file.
     """
-    kml.save(FILE_NAME)
-    print("Saved map file:", FILE_NAME)
+    kml.save(PATH_FILE)
+    print("Saved map file:", PATH_FILE)
