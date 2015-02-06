@@ -131,7 +131,7 @@ def get_unique_positions():
                 + TBL_POSITIONS + ' ORDER BY datetime(' + COL_CREATED + ') ASC')
         data = cur.fetchall()
         # Remove adjacent duplicates, 'not' needed to get last element
-        # TODO Might be a smart way to do it in SQL directly without GROUP BY
+        # TODO There might be a smart way to do this in SQL directly (not GROUP BY)
         data = [a for a, b in zip(data, data[1:] + [not data[-1]]) if a != b]
 
     except lite.Error as e:
@@ -148,19 +148,23 @@ def get_stop_positions():
     """
     data = None
 
-    # TODO GROUP BY merges those which are duplicated but not adjacent
     # TODO Assumes it takes more than 10 sec (sampling interval) to make a delivery
     try:
         cur.execute('SELECT ' + COL_LATITUDE + ', ' + COL_LONGITUDE + ', ' +
-                COL_CREATED + ' FROM ' + TBL_POSITIONS + ' GROUP BY ' +
-                COL_LATITUDE + ', ' + COL_LONGITUDE + ', ' + COL_SPEED +
-                ' HAVING COUNT(' + COL_SPEED + ') > 1 ORDER BY datetime(' +
-                COL_CREATED + ') ASC')
+                COL_CREATED + ' FROM ' + TBL_POSITIONS + ' WHERE ' + COL_SPEED +
+                ' = 0 ORDER BY datetime(' + COL_CREATED + ') ASC')
         data = cur.fetchall()
+
+        # TODO There might be a smart way to do this in SQL directly (not GROUP BY)
+        # Remove adjacent duplicates, cannot zip since 3rd tuple val unique
+        data_no_dupes = []
+        for i, x in enumerate(data[1:]):
+            if x[0] != data[i][0] and x[1] != data[i][1]:
+                data_no_dupes.append(x)
 
     except lite.Error as e:
         print("Database error: %s" % e.args[0])
         if con: con.close()
         sys.exit(1)
 
-    return data
+    return data_no_dupes

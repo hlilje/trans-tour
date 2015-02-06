@@ -31,7 +31,6 @@ def plot_addresses(start_addr, addrs):
     pnt.style.iconstyle.icon.href = URL_ICON + "1.png"
 
     # Plot all addresses
-    # TODO Assumes delivery order as in database
     for i, addr in enumerate(addrs):
         pnt = kml.newpoint(name=addr[0], coords=[(addr[4], addr[3])])
         # TODO Current URL only goes to 100
