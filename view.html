@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>KML Layers</title>
+    <title>Delivery Route</title>
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -14,10 +14,10 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
 function initialize() {
-  var chicago = new google.maps.LatLng(41.875696,-87.624207);
+  var sthlm = new google.maps.LatLng(59.3407537, 18.112051);
   var mapOptions = {
     zoom: 11,
-    center: chicago
+    center: sthlm
   }
 
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
