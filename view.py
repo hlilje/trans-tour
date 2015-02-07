@@ -7,9 +7,10 @@ import fileinput
 import os.path
 import re
 import sys
+import webbrowser
 
 PATH_VIEW = "view.html"
-URL_KML   = "TODO"
+URL_KML   = "(url to public file on computer)"
 
 
 def write_kml_url():
@@ -22,5 +23,13 @@ def write_kml_url():
             line = re.sub(r"url:\ \'.*\'", "url: '" + URL_KML + "'", line)
             print(line, end='')
     else:
-        print("View does not exist")
+        print("View file does not exist")
         sys.exit(1)
+
+def view():
+    """
+    Open the view file in the browser.
+    """
+    url = "file://" + os.path.abspath(PATH_VIEW)
+    webbrowser.open_new_tab(url)
+    print("Map opened in browser")

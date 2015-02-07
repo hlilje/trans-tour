@@ -23,5 +23,6 @@ if __name__ == "__main__":
     pl.save()
 
     vw.write_kml_url()
+    vw.view()
 
     db.close()
