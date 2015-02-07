@@ -5,8 +5,9 @@ Functions for plotting data points/routes on a map.
 """
 import simplekml
 
-PATH_FILE = "../kml/map.kml"
-URL_ICON  = "http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-666666/shapecolor-color/shadow-1/border-dark/symbolstyle-white/symbolshadowstyle-dark/gradient-no/number_"
+PATH_FILE     = "../kml/map.kml"
+URL_ICON_PRE  = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld="
+URL_ICON_POST = "|FF0000"
 
 kml = None # The kml map object
 
@@ -18,6 +19,12 @@ def init():
     global kml
     kml = simplekml.Kml()
 
+def icon_url(n):
+    """
+    Get the URL corresponding to the given icon.
+    """
+    return URL_ICON_PRE + str(n) + URL_ICON_POST
+
 def plot_addresses(start_addr, addrs):
     """
     Plot the given start address and addresses on the map.
@@ -28,14 +35,12 @@ def plot_addresses(start_addr, addrs):
             coords=[(start[5], start[4])])
 
     # Icon based on number in route
-    pnt.style.iconstyle.icon.href = URL_ICON + "1.png"
+    pnt.style.iconstyle.icon.href = icon_url(1)
 
     # Plot all addresses
     for i, addr in enumerate(addrs):
         pnt = kml.newpoint(name=addr[0], coords=[(addr[4], addr[3])])
-        # TODO Current URL only goes to 100
-        if (i + 2) <= 100:
-            pnt.style.iconstyle.icon.href = URL_ICON + str(i + 2) + ".png"
+        pnt.style.iconstyle.icon.href = icon_url(i + 2)
 
 def plot_route(pos, thin=1):
     """
