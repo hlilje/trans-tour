@@ -22,7 +22,7 @@ if __name__ == "__main__":
     pl.plot_route(pos)
     pl.save()
 
-    vw.copy_kml_public("(Public folder to copy KML file)")
+    vw.copy_kml_public("/home/hlilje/Dropbox/")
     vw.write_kml_url()
     vw.view()
 

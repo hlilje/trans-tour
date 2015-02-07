@@ -28,6 +28,7 @@ def copy_kml_public(folder_path):
     if os.path.isdir(folder_path):
         # Copy the KML file to the given location
         shutil.copyfile(kml_path, folder_path + kml_file) # Src, dst
+        print("Map file copied to:", folder_path)
     else:
         print("The given public folder does not exist")
         sys.exit(1)
