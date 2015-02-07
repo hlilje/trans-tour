@@ -7,7 +7,8 @@ import os
 import simplekml
 import sys
 
-PATH_FILE     = "../kml/map.kml"
+PATH_FILE     = "../kml/map.kml" # Path to generate KML file
+# URLs for the map address icons
 URL_ICON_PRE  = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld="
 URL_ICON_POST = "|FF0000"
 

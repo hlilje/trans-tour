@@ -11,17 +11,19 @@ import sys
 import webbrowser
 import plot as pl
 
-PATH_VIEW = "view.html"
-URL_KML   = "(URL to public file on computer)"
+PATH_VIEW = "view.html" # Path to Google Maps html file
+URL_KML   = ""          # Public URL to file on computer
 
 
 def copy_kml_public(folder_path):
     """
     Copies the KML file to the given public location on the computer.
+    The given path must have a trailing '/'.
     """
     # Take file path specified in plot
     kml_path = os.path.realpath(pl.PATH_FILE)
     kml_file = os.path.basename(kml_path)
+    folder_path = os.path.normpath(folder_path) + os.sep # Add trailing '/'
 
     if os.path.isdir(folder_path):
         # Copy the KML file to the given location
