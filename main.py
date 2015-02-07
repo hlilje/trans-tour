@@ -3,6 +3,7 @@
 import calc as cl
 import database as db
 import plot as pl
+import view as vw
 
 
 if __name__ == "__main__":
@@ -18,7 +19,9 @@ if __name__ == "__main__":
 
     pl.init()
     pl.plot_addresses(start_addr, addrs)
-    pl.plot_route(pos) # Optional param for thinning
+    pl.plot_route(pos)
     pl.save()
+
+    vw.write_kml_url()
 
     db.close()
