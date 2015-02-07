@@ -3,7 +3,9 @@
 """
 Functions for plotting data points/routes on a map.
 """
+import os
 import simplekml
+import sys
 
 PATH_FILE     = "../kml/map.kml"
 URL_ICON_PRE  = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld="
@@ -60,5 +62,9 @@ def save():
     """
     Save the kml map file.
     """
-    kml.save(PATH_FILE)
-    print("Saved map file:", PATH_FILE)
+    if os.path.isdir(os.path.dirname(os.path.realpath(PATH_FILE))):
+        kml.save(PATH_FILE)
+        print("Saved map file:", PATH_FILE)
+    else:
+        print("No kml folder to generate file in")
+        sys.exit(1)
