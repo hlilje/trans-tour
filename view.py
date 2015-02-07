@@ -12,7 +12,7 @@ import webbrowser
 import plot as pl
 
 PATH_VIEW = "view.html" # Path to Google Maps html file
-URL_KML   = ""          # Public URL to file on computer
+URL_KML   = ""          # URL to public file on computer
 
 
 def copy_kml_public(folder_path):
